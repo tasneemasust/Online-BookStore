@@ -1,0 +1,45 @@
+<% if notice %>
+
+<p id="notice"><%= notice %></p>
+
+<% end %>
+
+ 
+<%= form_tag( :method => "get", class: "navbar-form", id: "search-form") do %>
+    <div id = "search">
+      <%= text_field_tag :search, params[:search], class: "span2", placeholder: "Search Books" %>
+      
+      <button class="btn" type="submit"><i class="icon-search"></i>Search</button>
+    </div>
+  <% end %>
+
+
+<h1>Product Catalog</h1>
+
+
+
+
+<% @products.each do |product| %>
+
+  <div class="entry">
+
+    <%= image_tag(product.image) %>
+
+    <h3><%= product.name %></h3>
+
+    <%= sanitize(product.description) %>
+
+    <div class="price_line">
+
+      <span class="price"><%= number_to_currency(product.price) %></span>
+
+      <!-- class is not necessary, but to show how to add class -->
+
+      <%= button_to 'Add to Cart', line_items_path(product_id: product), class: 'add_to_cart', remote:true %>
+
+
+    </div>
+
+  </div>
+
+<% end %>
